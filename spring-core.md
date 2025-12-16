@@ -626,7 +626,7 @@ DI is a **design pattern** used to achieve IoC by injecting dependencies into a 
 
 ---
 
-# 3️⃣ Spring Core vs Spring Boot (Professional Comparison)
+# 3️⃣ Spring Core vs Spring Boot
 
 ---
 
@@ -818,7 +818,7 @@ public class Application {
 
 ---
 
-# 6️⃣ Final Professional Summary
+# 6️⃣ Final  Summary
 
 * Spring Core manages **application components**
 * IoC removes object creation responsibility
