@@ -1,6 +1,6 @@
 ## 1️⃣ What is Spring Framework? 
 
-### Definition (Professional)
+### Definition 
 **Spring Framework** is a **Java-based application framework** that provides infrastructure support for building **enterprise-level applications** by managing:
 
 - Object creation
