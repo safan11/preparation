@@ -29,7 +29,7 @@
 
 ---
 
-## 🟡 SPRING BOOT – CORE CONCEPTS
+##  SPRING BOOT – CORE CONCEPTS
 
 16. What is Spring Boot?
 17. Why was Spring Boot introduced?
@@ -71,7 +71,7 @@
 
 ---
 
-## 🧩 ANNOTATIONS – LAYER WISE
+##  ANNOTATIONS – LAYER WISE
 
 43. Which annotations are used in Controller layer?
 44. Difference between `@Controller` and `@RestController`?
@@ -83,7 +83,7 @@
 
 ---
 
-## 🟤 SPRING DATA JPA & HIBERNATE (DEEP)
+##  SPRING DATA JPA & HIBERNATE (DEEP)
 
 50. What is JPA?
 51. What is Hibernate?
@@ -104,7 +104,7 @@
 
 ---
 
-## 🔶 CUSTOM QUERIES & TRANSACTIONS
+##  CUSTOM QUERIES & TRANSACTIONS
 
 66. What is JPQL?
 67. Difference between JPQL and Native Query?
