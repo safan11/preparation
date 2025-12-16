@@ -1,4 +1,4 @@
-## 1️⃣ What is Spring Framework? (Application Perspective)
+## 1️⃣ What is Spring Framework? 
 
 ### Definition (Professional)
 **Spring Framework** is a **Java-based application framework** that provides infrastructure support for building **enterprise-level applications** by managing:
@@ -476,5 +476,360 @@ public void destroy() {
 ## Professional One-Line Summary
 
 > **Spring Core provides a structured, loosely coupled, and maintainable foundation for enterprise Java applications by managing object creation and dependency wiring.**
+
+---
+
+**Part-2**
+
+---
+
+# 1️⃣ How Spring Core Works Internally (Application Flow)
+
+This is the **MOST IMPORTANT** part for interviews.
+
+---
+
+## 1.1 What Happens When a Spring Application Starts?
+
+### Step-by-Step Internal Flow
+
+```
+
+Application Start
+↓
+Spring Container Created
+↓
+Configuration Loaded (XML / Annotations / Java Config)
+↓
+Class Scanning (@ComponentScan)
+↓
+Bean Definitions Created
+↓
+Bean Objects Instantiated
+↓
+Dependency Injection Performed
+↓
+Bean Lifecycle Methods Called
+↓
+Application Ready
+
+````
+
+---
+
+## 1.2 Bean Definition vs Bean Object
+
+### Bean Definition
+- Metadata about a class
+- Stored inside Spring container
+- Contains:
+  - Class name
+  - Scope
+  - Dependencies
+  - Init & destroy methods
+
+### Bean Object
+- Actual Java object created from definition
+
+👉 **Spring first creates bean definitions, then objects**
+
+---
+
+## 1.3 Internal Example
+
+```java
+@Service
+public class PaymentService {
+}
+````
+
+Internally Spring stores:
+
+```
+Bean Name: paymentService
+Class: PaymentService
+Scope: singleton
+```
+
+Then Spring creates:
+
+```java
+PaymentService obj = new PaymentService();
+```
+
+---
+
+# 2️⃣ Dependency Injection (DI) vs Inversion of Control (IoC)
+
+This is a **very common interview confusion**.
+
+---
+
+## 2.1 Inversion of Control (IoC)
+
+### Definition (Professional)
+
+IoC is a **design principle** where the control of object creation and dependency management is inverted from application code to the framework.
+
+### Key Point
+
+* IoC is a **concept**
+* Spring **implements IoC**
+
+---
+
+### IoC Example
+
+❌ Without IoC:
+
+```java
+UserService service = new UserService();
+```
+
+✅ With IoC:
+
+```java
+UserService service = context.getBean(UserService.class);
+```
+
+---
+
+## 2.2 Dependency Injection (DI)
+
+### Definition
+
+DI is a **design pattern** used to achieve IoC by injecting dependencies into a class.
+
+### Key Point
+
+* DI is the **mechanism**
+* IoC is the **idea**
+
+---
+
+## 2.3 Relationship Between IoC and DI
+
+| Aspect         | IoC               | DI                   |
+| -------------- | ----------------- | -------------------- |
+| Type           | Principle         | Pattern              |
+| Purpose        | Control inversion | Dependency supply    |
+| Implemented by | Framework         | Constructor / Setter |
+| Example        | Spring Container  | @Autowired           |
+
+👉 **Spring uses DI to achieve IoC**
+
+---
+
+## 2.4 Interview One-Liner
+
+> **IoC is the concept, DI is the implementation, Spring is the framework that provides both.**
+
+---
+
+# 3️⃣ Spring Core vs Spring Boot (Professional Comparison)
+
+---
+
+## 3.1 Spring Core
+
+### What It Is
+
+* Base framework
+* Provides IoC and DI
+* Requires manual configuration
+
+### Characteristics
+
+* XML / Java config required
+* More boilerplate
+* Used in legacy projects
+
+---
+
+## 3.2 Spring Boot
+
+### What It Is
+
+* Built on top of Spring Core
+* Auto-configuration enabled
+* Production-ready
+
+### Characteristics
+
+* No XML needed
+* Embedded server
+* Faster development
+
+---
+
+## 3.3 Detailed Comparison Table
+
+| Feature         | Spring Core       | Spring Boot   |
+| --------------- | ----------------- | ------------- |
+| Configuration   | Manual            | Auto          |
+| XML             | Required (mostly) | Not required  |
+| Server          | External          | Embedded      |
+| Setup Time      | High              | Very Low      |
+| Suitable For    | Learning / Legacy | Modern Apps   |
+| Dependency Mgmt | Manual            | Starter-based |
+
+---
+
+## 3.4 Interview Tip
+
+> **Spring Boot internally uses Spring Core. Boot is not a replacement, it is an enhancement.**
+
+---
+
+# 4️⃣ Mini Real Application Structure (Professional)
+
+### Example: User Management Application
+
+---
+
+## 4.1 Package Structure
+
+```
+com.app
+ ├── controller
+ │    └── UserController.java
+ ├── service
+ │    └── UserService.java
+ ├── repository
+ │    └── UserRepository.java
+ ├── config
+ │    └── AppConfig.java
+ └── Application.java
+```
+
+---
+
+## 4.2 Repository Layer
+
+```java
+@Repository
+public class UserRepository {
+
+    public void saveUser() {
+        System.out.println("User saved to DB");
+    }
+}
+```
+
+---
+
+## 4.3 Service Layer (Business Logic)
+
+```java
+@Service
+public class UserService {
+
+    private final UserRepository repo;
+
+    public UserService(UserRepository repo) {
+        this.repo = repo;
+    }
+
+    public void registerUser() {
+        repo.saveUser();
+    }
+}
+```
+
+---
+
+## 4.4 Controller Layer
+
+```java
+@RestController
+public class UserController {
+
+    private final UserService service;
+
+    public UserController(UserService service) {
+        this.service = service;
+    }
+
+    public void createUser() {
+        service.registerUser();
+    }
+}
+```
+
+---
+
+## 4.5 Configuration Class
+
+```java
+@Configuration
+@ComponentScan("com.app")
+public class AppConfig {
+}
+```
+
+---
+
+## 4.6 Application Entry Point
+
+```java
+public class Application {
+
+    public static void main(String[] args) {
+        ApplicationContext context =
+            new AnnotationConfigApplicationContext(AppConfig.class);
+
+        UserController controller =
+            context.getBean(UserController.class);
+
+        controller.createUser();
+    }
+}
+```
+
+---
+
+## 4.7 Key Observations (VERY IMPORTANT)
+
+✔ No `new` keyword
+✔ Loose coupling
+✔ Easy testing
+✔ Layer separation
+✔ Professional architecture
+
+---
+
+# 5️⃣ Common Interview Questions (With Crisp Answers)
+
+### Q1: Why Spring is better than plain Java?
+
+👉 Loose coupling, DI, IoC, easier testing
+
+### Q2: What is Spring Container?
+
+👉 Object factory + lifecycle manager
+
+### Q3: Default bean scope?
+
+👉 Singleton
+
+### Q4: Best DI type?
+
+👉 Constructor Injection
+
+---
+
+# 6️⃣ Final Professional Summary
+
+* Spring Core manages **application components**
+* IoC removes object creation responsibility
+* DI connects layers cleanly
+* Spring Boot simplifies Spring Core
+* Used in **real enterprise applications**
+
+---
+
+
+
+
 
 
